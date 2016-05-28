@@ -1,4 +1,4 @@
-# Microsoft Graph - ASP.NET MVC sample avec Microsoft Graph
+# DemoGraph- Un exemple d'application ASP.NET MVC utilisant Microsoft Graph
 
 ## Pré-requis
 
