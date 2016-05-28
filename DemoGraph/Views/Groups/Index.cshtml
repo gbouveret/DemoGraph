@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Groupes";
+}
+@model IList<Microsoft.Graph.Group>
+<div class="ms-Grid">
+    <div class="ms-Grid-row">
+        <div class="ms-Grid-col ms-u-sm6 ms-u-md5">
+            @if (ViewBag.OnlyMyGroups)
+            {
+                <h2 class="ms-font-xxl">Mes groupes | <a href="@Url.Action("Index", "Groups")" class="ms-font-m">Tous les groupes</a></h2>
+            }
+            else
+            {
+                <h2 class="ms-font-xxl">Tous les groupes | <a href="@Url.Action("Index", "Groups", new { onlyMyGroups = true })" class="ms-font-m">Mes groupes</a></h2>
+            }
+            @if (Model != null)
+            {
+                foreach (var g in Model)
+                {
+                    <p>
+                        <i class="ms-Icon ms-Icon--@(g.Visibility == "Public" ? "peopleSecurity" : "group")" title="@g.Visibility"></i> @g.DisplayName
+                        <br /><span class="ms-font-s">@g.Description</span><br />
+                        <a href="mailto:@g.Mail" class="ms-font-s"><i class="ms-Icon ms-Icon--mailCheck"></i> @g.Mail</a>
+                    </p>
+                }
+            }
+            else
+            {
+                <p>Aucun groupe</p>
+            }
+        </div>
+        <div class="ms-Grid-col ms-u-sm6 ms-u-md7">
+            <h2 class="ms-font-xxl">Nouveau groupe</h2>
+            @using (Html.BeginForm("AddGroup", "Groups", FormMethod.Post))
+            {
+                <div class="new-group form ms-font-m-plus">
+                    <span>Nom :</span> <input type="text" id="title" name="title" value="" /><br />
+                    <span>Alias :</span> <input type="text" id="alias" name="alias" value="" />@@@User.Identity.Name.Substring(@User.Identity.Name.IndexOf("@") + 1)<br />
+                    <span>Description :</span> <textarea id="description" class="ms-font-m-plus" name="description" rows="3" cols="30"></textarea><br />
+                    <button type="submit"><i class="ms-Icon ms-Icon--new" aria-hidden="true"></i> Créer</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

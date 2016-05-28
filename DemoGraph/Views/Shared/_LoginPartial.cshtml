@@ -1,0 +1,9 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <li class="ms-NavBar-item ms-NavBar-item--right" style="margin-left: 30px"><a class="ms-NavBar-link" href="@Url.Action("Signout", "Account")"><i class="ms-Icon ms-Icon--personRemove"></i> Se déconnecter</a></li>
+    <li class="ms-NavBar-item ms-NavBar-item--right"><a class="ms-NavBar-link" href="@Url.Action("Index", "UserProfile")">@User.Identity.Name</a></li>
+}
+else
+{
+    <li class="ms-NavBar-item ms-NavBar-item--right"><a class="ms-NavBar-link" href="@Url.Action("Index", "UserProfile")" id="loginLink"><i class="ms-Icon ms-Icon--person"></i> Se connecter</a></li>
+}

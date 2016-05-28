@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Demo Microsoft Graph</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/fabric.min.css">
+    <link rel="stylesheet" href="~/Content/fabric.components.min.css">
+</head>
+<body>
+    <div class="ms-NavBar">
+        <div class="ms-NavBar-openMenu js-openMenu"><i class="ms-Icon ms-Icon--menu"></i></div>
+        <div class="ms-Overlay"></div>
+        <ul class="ms-NavBar-items">
+            <li class="ms-NavBar-item"><a href="@Url.Action("Index", "Home")" class="ms-NavBar-link"><i class="ms-Icon ms-Icon--home"></i> Accueil</a></li>
+            <li class="ms-NavBar-item"><a href="@Url.Action("Index", "Contacts")" class="ms-NavBar-link"><i class="ms-Icon ms-Icon--contact"></i> Contacts</a></li>
+            <li class="ms-NavBar-item"><a href="@Url.Action("Index", "Messages")" class="ms-NavBar-link"><i class="ms-Icon ms-Icon--mail"></i> Messages</a></li>
+            <li class="ms-NavBar-item"><a href="@Url.Action("Index", "Groups")" class="ms-NavBar-link"><i class="ms-Icon ms-Icon--group"></i> Groupes</a></li>
+            <li class="ms-NavBar-item"><a href="@Url.Action("Index", "Files")" class="ms-NavBar-link"><i class="ms-Icon ms-Icon--documents"></i> OneDrive</a></li>
+            <li class="ms-NavBar-item"><a href="@Url.Action("Index", "Workbook")" class="ms-NavBar-link"><i class="ms-Icon ms-Icon--table"></i> Excel</a></li>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+    <div class="container body-content ms-font-m-plus">
+        @RenderBody()
+        <hr />
+        <footer class="ms-font-m">
+            <p>&copy; @DateTime.Now.Year - Demo Microsoft Graph - Gaëtan BOUVERET</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

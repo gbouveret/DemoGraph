@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Contacts";
+}
+@model IList<Microsoft.Graph.Contact>
+<h2 class="ms-font-xxl">@ViewBag.Title</h2>
+@if (Model != null)
+{
+    foreach (var c in Model)
+    {
+        <p>@c.DisplayName - @c.Department (@(c.EmailAddresses != null ? c.EmailAddresses.FirstOrDefault().Address : "-"))</p>
+    }
+}
+else
+{
+    <p>Aucun contact</p>
+}

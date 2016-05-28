@@ -1,0 +1,46 @@
+﻿@model IList<Microsoft.Graph.Message>
+<div class="ms-Grid">
+    <div class="ms-Grid-row">
+        <div class="ms-Grid-col ms-u-sm6 ms-u-md5">
+            <h2 class="ms-font-xxl">Derniers emails</h2>
+            @if (Model != null)
+            {
+                foreach (var c in Model)
+                {
+                    <p><i class="ms-Icon ms-Icon--mail"></i> <span title="@c.BodyPreview">@c.Subject</span></p>
+                }
+            }
+            else
+            {
+                <p> Aucun Message</p>
+            }
+            <hr />
+            <h2 class="ms-font-xl">Filtrer</h2>
+            @using (Html.BeginForm("Index", "Messages", FormMethod.Post))
+            {
+                <p>
+                    Dossier : <select id="folderid" name="folderid">
+                        @foreach (string folderId in ((Dictionary<string, string>)ViewBag.FoldersOptions).Keys)
+                        {
+                            <option value="@folderId" @((folderId == ViewBag.FolderId) ? "selected=\"selected\"" : "")>@ViewBag.FoldersOptions[folderId]</option>
+                        }
+                    </select><br />
+                    Filtre ($filter) : <input type="text" id="filter" name="filter" value="@ViewBag.Filter" /> (ex: Subject eq 'Skype')<br />
+                    <button type="submit"><i class="ms-Icon ms-Icon--filter" aria-hidden="true"></i> Filtrer</button>
+                </p>
+            }
+        </div>
+        <div class="ms-Grid-col ms-u-sm6 ms-u-md7">
+            <h2 class="ms-font-xxl">Envoyer un email</h2>
+            @using (Html.BeginForm("SendMessage", "Messages", FormMethod.Post))
+            {
+                <div class="new-message form ms-font-m-plus">
+                    <span>To :</span> <input type="text" id="to" name="to" value="@User.Identity.Name" /><br />
+                    <span>Sujet :</span> <input type="text" id="subject" name="subject" value="Ceci est un test!" /><br />
+                    <span>Body :</span> <textarea id="body" name="body" rows="3" class="ms-font-m-plus" cols="50">Avec un peu de contenu</textarea><br />
+                    <button type="submit"><i class="ms-Icon ms-Icon--mailSend" aria-hidden="true"></i> Envoyer</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

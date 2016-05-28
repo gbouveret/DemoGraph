@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "OneDrive for Business - Mes Documents";
+}
+@model IList<Microsoft.Graph.DriveItem>
+<h2 class="ms-font-xxl">@ViewBag.Title</h2>
+@if (Model != null)
+{
+    foreach (var f in Model)
+    {
+        <p><a href="@f.WebUrl">@f.Name</a> - Modifié le @f.LastModifiedDateTime.Value.LocalDateTime.ToString()</p>
+    }
+}
+else
+{
+    <p>Aucun contact</p>
+}

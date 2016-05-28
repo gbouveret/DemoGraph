@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Classeur Excel";
+}
+@model DemoGraph.Models.CellModel
+<h2 class="ms-font-xxl">@ViewBag.Title</h2>
+<p>Sélectionnez un fichier Excel stocké dans votre OneDrive For Business, saisissez le nom de la feuille de données et la cellule désirée.</p>
+@using (Html.BeginForm("Index", "Workbook", FormMethod.Get))
+{
+    <p class="form">
+        <span>Fichier XL :</span>
+        <select id="filename" name="fileid">
+            @foreach (Microsoft.Graph.DriveItem f in ViewBag.Files)
+            {
+                if (f.Name.EndsWith(".xlsx"))
+                {
+                    <option value="@f.Id" @((Request.QueryString["fileid"] == f.Id) ? "selected=\"selected\"" : "")>@f.Name</option>
+                }
+            }
+        </select><br />
+        <span>Feuille :</span> <input type="text" name="sheetid" value="@(Request.QueryString["sheetid"] ?? "Sheet1")" /><br />
+        <span>Cellule :</span> <input type="text" name="range" value="@(Request.QueryString["range"] ?? "A1")" /><br />
+        <button type="submit">OK</button>
+    </p>
+}
+@if (Model != null)
+{
+    <p class="ms-font-m">
+        Valeur de la cellule @Model.Range:
+        <table class="workbook" style="min-width:100px; padding: 3px">
+            @for (int x = 0; x < Model.Values.Length; x++)
+            {
+                <tr>
+                    @for (int y = 0; y < Model.Values[x].Length; y++)
+                    {
+                        <td>@Model.Values[x][y]</td>
+                    }
+                </tr>
+            }
+        </table>
+    </p>
+}
+else
+{
+}
